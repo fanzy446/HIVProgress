@@ -181,8 +181,7 @@ for sequences in X_train:
     #    tmp = list(a0[0]) + list(a1[0]) + list(sequences[2:])
     X3_mod.append(tmp)
 
-print X_validation[0]
-print '***************************** four attributes *****************************'
+print '***************************** considering four attributes *****************************'
 for name, model in models:
     kfold = model_selection.KFold(n_splits=10, random_state=seed)
     cv_results = model_selection.cross_val_score(model, X3_mod, Y_train, cv=kfold, scoring=scoring)
@@ -192,10 +191,10 @@ for name, model in models:
     #    print model.get_params(True)
     weights_history = []
     for i in range(20):
-        # model = RandomForestClassifier()
+        model = RandomForestClassifier()
         model.fit(X3_mod, Y_train)
-        # weights_history.append(model.feature_importances_)
-        weights_history.append(model.coef_)
+        weights_history.append(model.feature_importances_)
+#        weights_history.append(model.coef_)
 
     weight = []
     for index in range(len(weights_history[0])):
@@ -218,6 +217,7 @@ for name, model in models:
 
     (PR_pos, PR_neg, RT_pos, RT_neg) = find_markers(X3, Y, weight, len0, len1, len(dic))
 
+    print '***************************** important positions *****************************'
     print 'PR_pos'
     print PR_pos
 
@@ -232,11 +232,12 @@ for name, model in models:
     # predictions = model.predict(X_validation)
     #    print predictions
     # c_matrix = confusion_matrix(Y_validation, predictions)
-    print "fengexian"
+    print "result"
     # print c_matrix
     # msg = "%s: %f (%f) %f" % (name, cv_results.mean(), cv_results.std(), accuracy_score(Y_validation, predictions))
     # print(msg)
 
+    print '***************************** result *****************************'
     result = 0
     for idx, test in enumerate(X_validation):
         sum_pos = 0
@@ -259,7 +260,7 @@ for name, model in models:
         else:
             if Y_validation[idx] == 'better':
                 result += 1
-        print (sum_pos, sum_neg, Y_validation[idx])
+#        print (sum_pos, sum_neg, Y_validation[idx])
 
     print float(result) / len(X_validation)
 
