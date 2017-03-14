@@ -59,13 +59,13 @@ X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(
 scoring = 'accuracy'
 
 models = []
-# models.append(('LR', LogisticRegression()))
+models.append(('LR', LogisticRegression()))
 # models.append(('LDA', LinearDiscriminantAnalysis()))
 # models.append(('KNN', KNeighborsClassifier()))
 # models.append(('CART', DecisionTreeClassifier()))
 # models.append(('NB', GaussianNB()))
 # models.append(('SVM', SVC()))
-models.append(('RF', RandomForestClassifier()))
+# models.append(('RF', RandomForestClassifier()))
 
 # evaluate each model in turn
 results = []
@@ -192,9 +192,10 @@ for name, model in models:
     #    print model.get_params(True)
     weights_history = []
     for i in range(20):
-        model = RandomForestClassifier()
+        # model = RandomForestClassifier()
         model.fit(X3_mod, Y_train)
-        weights_history.append(model.feature_importances_)
+        # weights_history.append(model.feature_importances_)
+        weights_history.append(model.coef_)
 
     weight = []
     for index in range(len(weights_history[0])):
@@ -216,6 +217,18 @@ for name, model in models:
     #            print weight
 
     (PR_pos, PR_neg, RT_pos, RT_neg) = find_markers(X3, Y, weight, len0, len1, len(dic))
+
+    print 'PR_pos'
+    print PR_pos
+
+    print 'PR_neg'
+    print PR_neg
+
+    print 'RT_pos'
+    print RT_pos
+
+    print 'RT_neg'
+    print RT_neg
     # predictions = model.predict(X_validation)
     #    print predictions
     # c_matrix = confusion_matrix(Y_validation, predictions)

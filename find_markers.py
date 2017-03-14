@@ -1,7 +1,7 @@
 import operator
 
 
-def find_markers(data, Y, weight, len0, len1, len_dic, marker_numbers=8, marker_length=9):
+def find_markers(data, Y, weight, len0, len1, len_dic, marker_numbers=24, marker_length=15):
     weight = weight[0:-2]
     new_weight = [sum(weight[i * len_dic: (i + 1) * len_dic]) for i in range(len(weight) / len_dic)]
     weight_seq1 = new_weight[0: len0]
